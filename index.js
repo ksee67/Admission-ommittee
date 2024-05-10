@@ -24,12 +24,6 @@ const pool = createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
-app.use(express.static(path.join(__dirname, 'src/pages')));
-
-// Настройка маршрута по умолчанию
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src/pages/Main.html'));
-});
 
 app.use(express.json());
 app.use((req, res, next) => {
