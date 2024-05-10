@@ -1,0 +1,187 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script> 
+</head> 
+<body> 
+    <div class="mermaid"> 
+        classDiagram 
+      
+        class AccessRights {
+            static checkUserRole(): void;
+          }
+          
+
+        class AddingEmployee {
+            static registerAdministrator()
+            static importAdministrator()
+          }
+
+          class Entrance {
+            private data: any;
+            private cardsPerPage: number;
+            private filteredData: any[];
+            private searchInput: any;
+            private classFilter: any;
+            private formFilter: any;
+          
+            constructor();
+            resetFilters(): void;
+            renderCardsWithSearchAndFilters(startIndex: number, cardsPerPage: number, searchQuery: string, classFilterValue: string, formFilterValue: string): void;
+            getClassId(className: string): number;
+            getEducationFormId(formName: string): number;
+            renderPagination(currentPage: number, totalPages: number): void;
+          
+          }
+          class CreateBackup {
+            +createBackup(): void
+            +restoreBackup(): void
+          }
+          CreateBackup --> AJAX: uses
+
+          class EditingPersonalAccount {
+            +getUserDetails()
+            +updateUserDetails()
+            +togglePasswordVisibility()
+            +updatePassword()
+            +deleteAdmin()
+          }
+          EditingPersonalAccount --|> Tooltip
+
+          class ListOfApplicants {  
+            + createProgramsCard(program: Object): HTMLDivElement
+            + openStudentsPage(programId: number, classId: number, educationFormId: number): void
+            + loadPrograms(page?: number, itemsPerPage?: number, searchQuery?: string, selectedClass?: string, selectedForm?: string): void
+            + renderPagination(currentPage: number, totalPages: number): void
+            + getClassId(className: string): number
+            + getEducationFormId(formName: string): number
+          }
+
+          class ListOfEmployees {
+            +loadAdministratorsData(): Promise void
+            +renderAdministratorsList(page: number, pageSize: number): void
+            +changeRole(administratorId: number, newRoleId: number): Promise void
+            +deleteAdministrator(administratorId: number): Promise void
+            +formatDate(dateString: string): string
+            +redirectToAddingEmployee(): void
+            +filterAdministrators(): void
+            +getPostId(postName: string): number
+            +sortByNameAsc(): void
+            +sortByNameDesc(): void
+            +sortAdministrators(property: string, order: string): void
+            +searchAdministrators(): void
+            +renderPagination(currentPage: number, totalPages: number): void
+          }
+
+          class StatisticsOfApplicants {
+            +formatDateString(dateString: string): string
+            +getLastMonthDate(): Date
+            +getLastWeekDates(): Date
+            +generateStatistics(): Promise void
+            +getDataForPeriod(data: any[], period: Date): any
+            +getPeriodLabel(dateString: string, period: Date): string
+            +generateChart(data:  labels: string[], datasets: any[] ): void
+          }
+          
+          class StudentsPage {
+            +currentPage: number
+            +pageSize: number
+          
+            +formatDate(dateString: string): string
+            +loadStudentsData(programId: number, classId: number, educationFormId: number): Promise any[]
+            +sortByNameDescending(studentsData: any[]): any[]
+            +sortByNameAscending(studentsData: any[]): any[]
+            +sortAndRender(order: string): void
+            +renderStudentsList(studentsData: any[], programDetails: any, surnameFilter: string, statusFilter: string): void
+            +loadProgramDetails(programId: number): Promise any
+            +sortByGradeDescending(studentsData: any[]): any[]
+            +sortByGradeAscending(studentsData: any[]): any[]
+            +sortByGradeDescendingOrder(studentsData: any[]): any[]
+            +sortByGradeAscendingOrder(studentsData: any[]): any[]
+          }
+          
+          class AboutTheProgram {
+            +fetchData(programId: number): void
+          }
+          
+
+          class AddPersonalDocuments {
+            +clearField(fieldId: string): void
+            +validateFileSize(input: HTMLInputElement, maxSizeInMB: number): void
+            +handleCertificatePhotoChange(): void
+            +handlePassportPhotoChange(): void
+            +previewImage(event: Event): void
+          }
+          
+
+          class ApplicationService {
+            +fetchApplications(userId: string): Promise Application[]
+            +submitApplication(userId: string, averageGrade: number, specialty: string): Promise void
+            +deleteApplication(applicationId: number): Promise void
+          }
+          class ApplicationStatus {
+            +id: number
+            +applicationId: number
+            +status: string
+            +submissionDate: Date
+          
+            constructor(id: number, applicationId: number, status: string, submissionDate: Date)
+          }
+          
+
+          class ProgramService {
+            +fetchPrograms(): Promise Program[]
+            +renderCardsWithSearchAndFilters(startIndex: number, cardsPerPage: number, searchQuery: string, classFilterValue: string, formFilterValue: string): void
+            +renderPagination(currentPage: number, totalPages: number): void
+            +getClassId(className: string): number | null
+            +getEducationFormId(formName: string): number | null
+          }
+
+          class AuthenticationService {
+            +login(email: string, password: string): Promise User
+          }
+          class logo {
+            +handleLogoClick(): void
+          }
+          class RegistrationService {
+            +validateForm(): boolean
+            +registerApplicant(applicant: Applicant): Promise void
+            +checkLogin(login: string): Promise boolean 
+          }
+        class SupportService {
+            +userId: number  
+             +getUserDetails():  Promise void
+        
+        }
+        class UserController {
+            +login(email,  password):   Promise void 
+        }
+        class Logout {
+            static init(): void
+          }
+
+          class Authorization {
+            static init(): void
+          }
+        class AuthServer {
+            +login(email,  password):   Promise void 
+            +generateAccessToken  (user):      string   
+            +authenticateToken (req, res,       next):     void 
+            +register(email: string, password: string, surname: string, firstName: string, middleName: string, dateOfBirth: string, postId: number): Promise void
+                +checkRegister(email: string): Promise void 
+                +updatePassword(userId: number, password: string): Promisevoid
+                +getCurrentUser(): Promisevoid
+        }
+
+        class Index {
+            +encryptData(data: string, key: string): string
+            +decryptData(data: string, key: string): string
+        }
+
+       
+    </div> 
+    <script> 
+        mermaid.initialize({ startOnLoad: true }); 
+    </script> 
+</body> 
+</html>
