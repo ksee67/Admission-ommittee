@@ -9,6 +9,7 @@ const { createPool } = require('mysql');
 const { exec } = require('child_process');
 const crypto = require('crypto');
 const dotenv = require('dotenv');
+const path = require('path');
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,12 @@ const pool = createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+});
+app.use(express.static(path.join(__dirname, 'src/pages')));
+
+// Настройка маршрута по умолчанию
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/pages/Main.html'));
 });
 
 app.use(express.json());
