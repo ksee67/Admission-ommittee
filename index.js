@@ -25,6 +25,8 @@ const pool = createPool({
   database: process.env.DB_NAME,
 });
 app.use(express.static(path.join(__dirname, 'src/pages')));
+// Сервировать статические файлы из папки "public"
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Настройка маршрута по умолчанию
 app.get('/', (req, res) => {
